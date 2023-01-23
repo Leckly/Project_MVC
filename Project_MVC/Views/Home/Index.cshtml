@@ -1,119 +1,32 @@
-﻿@{
+﻿@using Project_MVC.Data
+@model IEnumerable<Project_MVC.Models.Product>
+@{
     ViewData["Title"] = "Home Page";
 }
 <head>
     <title></title>
     <link href="../Content/Site.css" rel="stylesheet" />
 </head>
-<body>
 
+<div class="row pb-4">
+    @foreach (var item in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            @if (item.ImageName == null)
+            {
+                <img decoding="async" src="@("~/default_image/default.jpg")" asp-append-version="true" width="100px" height="100px" />
+            }
+            else
+            {
+                <img decoding="async" src="@("~/images/"+item.ImageName)" asp-append-version="true" width="200px" height="200px" />
+            }
+            <div classclass="card-body">
+                <h4 class="card-title"> @item.Name</h4>
+                <p class="card-text"> Price: @item.Price.ToString("0.00")</p>
+                <a asp-action="Deatils" asp-controller="Home" asp-route-product="@item.ProductId" class="btn btn-primary">Details</a>
 
-    <section>
-        <ul class="KursyTrzyKolumny duzaListaKursy">
-            <li>
-                <article>
-                    <a class="dodajDoKoszykaLink" href="link">
-                        <img src="../Content/Images/koszyk.png" />
-                    </a>
-                    <a class="kursSzczegolyLink" href="link">
-                        <div class="bestsellerFlag"></div>
-                        <img class="kurs" src="../Content/Kursy/obrazekcss.png" />
-                        <h1>
-                            Tutaj będzie tytuł
-                        </h1>
-                    </a>
-                </article>
-            </li>
-            <li>
-                <article>
-                    <a class="dodajDoKoszykaLink" href="link">
-                        <img src="../Content/Images/koszyk.png" />
-                    </a>
-                    <a class="kursSzczegolyLink" href="link">
-                        <div class="bestsellerFlag"></div>
-                        <img class="kurs" src="../Content/Kursy/obrazekhtml.png" />
-                        <h1>
-                            Tutaj będzie tytuł
-                        </h1>
-                    </a>
-                </article>
-            </li>
-            <li>
-                <article>
-                    <a class="dodajDoKoszykaLink" href="link">
-                        <img src="../Content/Images/koszyk.png" />
-                    </a>
-                    <a class="kursSzczegolyLink" href="link">
-                        <div class="bestsellerFlag"></div>
-                        <img class="kurs" src="../Content/Kursy/obrazekjquery.png" />
-                        <h1>
-                            Tutaj będzie tytuł
-                        </h1>
-                    </a>
-                </article>
-            </li>
-        </ul>
-    </section>
+            </div>
 
-    <section>
-        <ul class="KursyTrzyKolumny duzaListaKursy">
-            <li>
-                <article>
-                    <a class="dodajDoKoszykaLink" href="link">
-                        <img src="../Content/Images/koszyk.png" />
-                    </a>
-                    <a class="kursSzczegolyLink" href="link">
-                        <div class="newFlag"></div>
-                        <img class="kurs" src="../Content/Kursy/obrazekaspnet.png" />
-                        <h1>
-                            Tutaj będzie tytuł
-                        </h1>
-                    </a>
-                </article>
-            </li>
-            <li>
-                <article>
-                    <a class="dodajDoKoszykaLink" href="link">
-                        <img src="../Content/Images/koszyk.png" />
-                    </a>
-                    <a class="kursSzczegolyLink" href="link">
-                        <div class="newFlag"></div>
-                        <img class="kurs" src="../Content/Kursy/obrazekcsharp.png" />
-                        <h1>
-                            Tutaj będzie tytuł
-                        </h1>
-                    </a>
-                </article>
-            </li>
-            <li>
-                <article>
-                    <a class="dodajDoKoszykaLink" href="link">
-                        <img src="../Content/Images/koszyk.png" />
-                    </a>
-                    <a class="kursSzczegolyLink" href="link">
-                        <div class="newFlag"></div>
-                        <img class="kurs" src="../Content/Kursy/obrazekmvc.png" />
-                        <h1>
-                            Tutaj będzie tytuł
-                        </h1>
-                    </a>
-                </article>
-            </li>
-        </ul>
-    </section>
-
-    <footer>
-        <nav>
-            <ul>
-                <li><a href="link">O nas</a></li>
-                <li><a href="link">Społeczność</a></li>
-                <li><a href="link">Opinie</a></li>
-                <li><a href="link">Pomoc</a></li>
-                <li><a href="link">Regulamin</a></li>
-                <li><a href="link">Kontakt</a></li>
-            </ul>
-        </nav>
-        <div id="footerLogo">
         </div>
-    </footer>
-</body>
+    }
+</div>

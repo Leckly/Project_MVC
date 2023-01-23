@@ -7,7 +7,7 @@ using Project_MVC.Session;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("SotreApps");
+var connectionString = builder.Configuration.GetConnectionString("SotreApps1");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

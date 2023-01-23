@@ -1,0 +1,157 @@
+﻿@using Project_MVC.Data
+@model List<Project_MVC.Models.Product>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Produkty</h1>
+
+<p>
+    <a asp-action="Create">Dodaj nowy produkt</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="Search" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" />
+            @if (@ViewData["CurrentFilter"] != null)
+            {
+                <a style="text-decoration: none" asp-action="Index">@ViewData["CurrentFilter"] ✖</a>
+            }
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @if (Convert.ToString(@ViewData["NameSortParm"]) == "name_desc")
+                {
+                    <a class="non_format" asp-route-search="@ViewData["CurrentFilter"]" asp-action="Index" asp-route-order="@ViewData["NameSortParm"]">Nazwa produktu ↑</a>
+                }
+                else if (Convert.ToString(@ViewData["Order"]) == "name_desc")
+                {
+                    <a asp-action="Index" asp-route-search="@ViewData["CurrentFilter"]" asp-route-order="@ViewData["NameSortParm"]">Nazwa produktu ↓</a>
+                }
+                else
+                {
+                    <a asp-action="Index" asp-route-search="@ViewData["CurrentFilter"]" asp-route-order="@ViewData["NameSortParm"]">Nazwa produktu</a>
+                }
+            </th>
+            <th>
+                Zdjęcie produktu
+            </th>
+            <th>
+                @if (Convert.ToString(@ViewData["Order"]) != "kcal" && Convert.ToString(@ViewData["Order"]) != "kcal_desc")
+                {
+                    <a asp-action="Index" asp-route-search="@ViewData["CurrentFilter"]" asp-route-order="@ViewData["KcalSortParm"]">Autor</a>
+                }
+
+            </th>
+            <th>
+                @if (Convert.ToString(@ViewData["Order"]) != "fat" && Convert.ToString(@ViewData["Order"]) != "fat_desc")
+                {
+                    <a asp-action="Index" asp-route-search="@ViewData["CurrentFilter"]" asp-route-order="@ViewData["FatSortParm"]">Cena</a>
+                }
+
+            </th>
+            <th>
+                @if (Convert.ToString(@ViewData["Order"]) != "carbo" && Convert.ToString(@ViewData["Order"]) != "carbo_desc")
+                {
+                    <a asp-action="Index" asp-route-search="@ViewData["CurrentFilter"]" asp-route-order="@ViewData["CarboSortParm"]">Opis</a>
+                }
+
+            </th>
+            <th>
+                @if (Convert.ToString(@ViewData["Order"]) != "protein" && Convert.ToString(@ViewData["Order"]) != "protein_desc")
+                {
+                    <a asp-action="Index" asp-route-search="@ViewData["CurrentFilter"]" asp-route-order="@ViewData["ProteinSortParm"]">Krótki Opis</a>
+                }
+
+
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="Search">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @if (item.ImageName == null)
+                {
+                    <td>
+                        <img decoding="async" src="@("~/default_image/default.jpg")" asp-append-version="true" width="100px" height="100px" />
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <img decoding="async" src="@("~/images/"+item.ImageName)" asp-append-version="true" width="100px" height="100px" />
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortDescription)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                    {
+                        <text> |</text>
+                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
+                        <text> |</text>
+                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+</script>
+
+<style>
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+        a:hover {
+            color: dimgrey;
+        }
+</style>

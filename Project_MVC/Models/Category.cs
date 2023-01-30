@@ -11,8 +11,8 @@ namespace Project_MVC.Models
         [Required(ErrorMessage = "Wprowadz nazwę kategorii")]
         [StringLength(100)]
         public string Name { get; set; }
-   
-
+        public int? ParentCategoryId { get; set; } = null;
+        public int? ChildCategoryId { get; set; } = null;
         public virtual ICollection<Product> Products { get; set; }
 
     }

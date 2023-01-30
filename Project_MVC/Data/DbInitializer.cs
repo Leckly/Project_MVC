@@ -51,6 +51,21 @@ namespace Project_MVC.Data
                 context.Users.Add(u);
                 
             }
+            context.UserRoles.Add(new IdentityUserRole<string>()
+            {
+                RoleId = AdminRoleId,
+                UserId = User1Id
+            });
+            context.UserRoles.Add(new IdentityUserRole<string>()
+            {
+                RoleId = UserRoleId,
+                UserId = User1Id
+            });
+            context.UserRoles.Add(new IdentityUserRole<string>()
+            {
+                RoleId = UserRoleId,
+                UserId = User2Id
+            });
             context.SaveChanges();
 
         }

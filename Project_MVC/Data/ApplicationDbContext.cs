@@ -17,7 +17,7 @@ namespace Project_MVC.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
-  
+        public DbSet<SiteCounter> SiteCounter { get; set; }
 
     }
  

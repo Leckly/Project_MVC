@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_MVC.Data;
 
@@ -11,9 +12,10 @@ using Project_MVC.Data;
 namespace Project_MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230129200741_siema")]
+    partial class siema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -372,10 +374,16 @@ namespace Project_MVC.Migrations
                     b.Property<DateTime>("AddData")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<int>("Bestseller")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
+                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -395,6 +403,7 @@ namespace Project_MVC.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("Price")
+                        .HasMaxLength(50)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("ShoppingCartId")

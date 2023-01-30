@@ -63,7 +63,7 @@ app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{Area=Admin}/{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 app.MapDefaultControllerRoute();
 

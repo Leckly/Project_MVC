@@ -10,7 +10,9 @@ namespace Project_MVC.Models
         [HiddenInput(DisplayValue = false)]
         [Required]
         public int ProductId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Wprowadź kategorię produktu!")]
+        [Display(Name = "Kategoria produktu")]
+
         public int CategoryId { get; set; }
 
         [Required(ErrorMessage = "Wprowadź nazwę produktu!")]
@@ -18,21 +20,22 @@ namespace Project_MVC.Models
         [Display(Name = "Nazwa produktu")]
 
         public string Name { get; set; }
-        [Required(ErrorMessage = "Wprowadz nazwę autora")]
-        [StringLength(100)]
-
-       
-        public string Author { get; set; }
+     
         [Required]
         public DateTime AddData { get; set; }
 
-        [Required(ErrorMessage = "Opis przepisu jest wymagany!")]
+        [Required(ErrorMessage = "Opis jest wymagany!")]
         [MaxLength(50, ErrorMessage = "Opis może mieć maksymalnie 5000 znaków")]
-        [Display(Name = "Opis przepisu")]
+        [Display(Name = "Opis produktu")]
         public string Description { get; set; }
+        [Required(ErrorMessage = "Cena jest wymagany!")]
+        [Display(Name = "Cena")]
         public decimal Price { get; set; }
-        public bool Bestseller { get; set; }
+        public int Bestseller { get; set; } = 0; 
         public bool Hidden { get; set; }
+        [Required(ErrorMessage = "Krótki opis jest wymagany!")]
+        [MaxLength(50, ErrorMessage = "Opis może mieć maksymalnie 200 znaków")]
+        [Display(Name = "Krótki opis produktu")]
         public string ShortDescription { get; set; }
 
         public string ImageName { get; set; }
@@ -42,6 +45,7 @@ namespace Project_MVC.Models
         public IFormFile Image { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+        [ForeignKey("CategoryId")]
         public virtual ICollection<Category> Category { get; set; }
     }
 }

@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Admin\Models\**" />
+    <Compile Remove="Areas\User\**" />
     <Content Remove="Areas\Admin\Models\**" />
+    <Content Remove="Areas\User\**" />
     <EmbeddedResource Remove="Areas\Admin\Models\**" />
+    <EmbeddedResource Remove="Areas\User\**" />
     <None Remove="Areas\Admin\Models\**" />
+    <None Remove="Areas\User\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,8 +41,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\User\View\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Views\Container\" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/base-04.json" /></VisualStudio></ProjectExtensions>
 
 </Project>

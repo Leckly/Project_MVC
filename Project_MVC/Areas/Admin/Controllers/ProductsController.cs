@@ -4,7 +4,7 @@ using Project_MVC.Models;
 using Microsoft.AspNetCore.Authorization;
 
 using Project_MVC.Data;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Project_MVC.Areas.Admin.Controllers
 {
@@ -24,11 +24,11 @@ namespace Project_MVC.Areas.Admin.Controllers
         {
             ViewData["Order"] = order;
             ViewData["NameSortParm"] = string.IsNullOrEmpty(order) ? "name_desc" : "";
-            ViewData["AuthorSortParm"] = string.IsNullOrEmpty(order) ? "author_desc" : "";
             ViewData["DescriptionSortParm"] = order == "description" ? "description_desc" : "description";
             ViewData["PriceSortParm"] = order == "price" ? "price_desc" : "price";
             ViewData["BestsellerSortParm"] = order == "bestseller" ? "bestseller_desc" : "bestseller";
             ViewData["ShortDescrprionSortParm"] = order == "shortdescription" ? "shortdescription_desc" : "shortdescription";
+            
 
 
 
@@ -39,12 +39,7 @@ namespace Project_MVC.Areas.Admin.Controllers
             }
             switch (order)
             {
-                case "author_desc":
-                    products = products.OrderByDescending(s => s.Author).ToList();
-                    break;
-                case "author":
-                    products = products.OrderBy(s => s.Author).ToList();
-                    break;
+         
                 case "description-desc":
                     products = products.OrderByDescending(s => s.Description).ToList();
                     break;
@@ -77,8 +72,22 @@ namespace Project_MVC.Areas.Admin.Controllers
                     products = products.OrderBy(s => s.Name).ToList();
                     break;
             }
+            List<JoinedProducts> joinedProducts = new();
+            joinedProducts = (from p in products
+                                    join c in _context.Categories
+                                    on p.CategoryId equals c.CategoryId
+                                    select new JoinedProducts
+                                    {
+                                        Id = p.ProductId,
+                                        NazwaProduktu = p.Name,
+                                        Cena = p.Price,
+                                        Opis = p.Description,
+                                        KrótkiOpis = p.ShortDescription,
+                                        Kategoria = c.Name,
+                                        Zdjecieproduktu = p.ImageName
+                                    }).ToList();
             int pageSize = 5;
-            return View(PaginatedList<Product>.Create(products, pageNumber ?? 1, pageSize));
+            return View(PaginatedList<JoinedProducts>.Create(joinedProducts, pageNumber ?? 1, pageSize));
 
         }
 
@@ -104,6 +113,7 @@ namespace Project_MVC.Areas.Admin.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name"); 
             return View();
         }
 
@@ -112,7 +122,7 @@ namespace Project_MVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Name,Author,Description,Price,Bestseller,ShortDescription,Image")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,Name,Description,Price,Bestseller,ShortDescription,Image, CategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {

@@ -1,5 +1,6 @@
 ﻿@using Project_MVC.Data
-@model List<Project_MVC.Models.Product>
+@model List<Project_MVC.Models.JoinedProducts>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -36,14 +37,6 @@
                 {
                     <a class="non_format" asp-route-search="@ViewData["CurrentFilter"]" asp-action="Index" asp-route-order="@ViewData["NameSortParm"]">Nazwa produktu ↑</a>
                 }
-                else if (Convert.ToString(@ViewData["Order"]) == "name_desc")
-                {
-                    <a asp-action="Index" asp-route-search="@ViewData["CurrentFilter"]" asp-route-order="@ViewData["NameSortParm"]">Nazwa produktu ↓</a>
-                }
-                else
-                {
-                    <a asp-action="Index" asp-route-search="@ViewData["CurrentFilter"]" asp-route-order="@ViewData["NameSortParm"]">Nazwa produktu</a>
-                }
             </th>
             <th>
                 Zdjęcie produktu
@@ -70,6 +63,14 @@
 
 
             </th>
+            <th>
+                @if (Convert.ToString(@ViewData["Order"]) != "protein" && Convert.ToString(@ViewData["Order"]) != "protein_desc")
+                {
+                    <a asp-action="Index" asp-route-search="@ViewData["CurrentFilter"]" asp-route-order="@ViewData["ProteinSortParm"]">Kategoria</a>
+                }
+
+
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -78,9 +79,9 @@
         {
             <tr class="Search">
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.NazwaProduktu)
                 </td>
-                @if (item.ImageName == null)
+                @if (item.Zdjecieproduktu == null)
                 {
                     <td>
                         <img decoding="async" src="@("~/default_image/default.jpg")" asp-append-version="true" width="100px" height="100px" />
@@ -89,26 +90,31 @@
                 else
                 {
                     <td>
-                        <img decoding="async" src="@("~/images/"+item.ImageName)" asp-append-version="true" width="100px" height="100px" />
+                        <img decoding="async" src="@("~/images/"+item.Zdjecieproduktu)" asp-append-version="true" width="100px" height="100px" />
                     </td>
                 }
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @Html.DisplayFor(modelItem => item.Cena)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.DisplayFor(modelItem => item.Opis)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ShortDescription)
+                    @Html.DisplayFor(modelItem => item.KrótkiOpis)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                    @Html.DisplayFor(modelItem => item.Kategoria)
+          
+                </td>
+                <td>
+                   
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                     @if (ViewContext.HttpContext.User.IsInRole("Admin"))
                     {
                         <text> |</text>
-                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                         <text> |</text>
-                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     }
                 </td>
             </tr>

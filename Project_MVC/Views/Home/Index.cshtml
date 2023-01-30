@@ -7,7 +7,9 @@
     <title></title>
     <link href="../Content/Site.css" rel="stylesheet" />
 </head>
-
+<div class="row pb-3">
+    <label>Liczba wejść: @ViewBag.Counter</label>
+</div>
 <div class="row pb-4">
     @foreach (var item in Model.BestSellers)
     {

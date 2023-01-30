@@ -20,9 +20,9 @@ namespace Project_MVC.Models
         [Display(Name = "Nazwa produktu")]
 
         public string Name { get; set; }
-     
+
         [Required]
-        public DateTime AddData { get; set; }
+        public DateTime AddData { get; set; } = DateTime.Now;
 
         [Required(ErrorMessage = "Opis jest wymagany!")]
         [MaxLength(50, ErrorMessage = "Opis może mieć maksymalnie 5000 znaków")]
@@ -31,8 +31,8 @@ namespace Project_MVC.Models
         [Required(ErrorMessage = "Cena jest wymagany!")]
         [Display(Name = "Cena")]
         public decimal Price { get; set; }
-        public int Bestseller { get; set; } = 0; 
-        public bool Hidden { get; set; }
+        public int Bestseller { get; set; } = 0;
+        public bool Hidden { get; set; } = false;
         [Required(ErrorMessage = "Krótki opis jest wymagany!")]
         [MaxLength(50, ErrorMessage = "Opis może mieć maksymalnie 200 znaków")]
         [Display(Name = "Krótki opis produktu")]

@@ -20,9 +20,15 @@ namespace Project_MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var products = await _context.Products.ToListAsync();
+            var newestProducts = await _context.Products.Where(x => x.AddData > DateTime.Now.AddMinutes(-60)).OrderByDescending(x => x.AddData).Take(3).ToListAsync();
+            var bestSellers = await _context.Products.Where(x => x.Bestseller >= 1 ).OrderByDescending(x => x.Bestseller).Take(3).ToListAsync();
+            var homeModel = new HomeModel()
+            {
+                NewestProducts = newestProducts,
+                BestSellers = bestSellers
+            };
 
-            return View(products);
+            return View(homeModel);
         }
 
         public IActionResult Privacy()

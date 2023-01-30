@@ -13,6 +13,7 @@ namespace Project_MVC.Models
         public string Name { get; set; }
         public int? ParentCategoryId { get; set; } = null;
         public int? ChildCategoryId { get; set; } = null;
+        public bool Hidden { get; set; }= false;
         public virtual ICollection<Product> Products { get; set; }
 
     }

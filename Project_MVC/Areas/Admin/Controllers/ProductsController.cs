@@ -73,7 +73,7 @@ namespace Project_MVC.Areas.Admin.Controllers
                     break;
             }
             List<JoinedProducts> joinedProducts = new();
-            joinedProducts = (from p in products
+            joinedProducts = (from p in products.Where(x => x.Hidden == false)
                                     join c in _context.Categories
                                     on p.CategoryId equals c.CategoryId
                                     select new JoinedProducts

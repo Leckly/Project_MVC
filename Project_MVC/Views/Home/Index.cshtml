@@ -1,5 +1,5 @@
 ﻿@using Project_MVC.Data
-@model IEnumerable<Project_MVC.Models.Product>
+@model Project_MVC.Models.HomeModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -9,7 +9,7 @@
 </head>
 
 <div class="row pb-4">
-    @foreach (var item in Model)
+    @foreach (var item in Model.BestSellers)
     {
         <div class="card" style="width: 18rem;">
             @if (item.ImageName == null)
@@ -25,6 +25,29 @@
                 <p class="card-text"> Price: @item.Price.ToString("0.00")</p>
                 <a asp-action="Deatils" asp-controller="Home" asp-route-product="@item.ProductId" class="btn btn-primary">Details</a>
 
+            </div>
+
+        </div>
+    }
+
+    
+</div>
+<div class="row pb-5">
+    @foreach (var item in Model.NewestProducts)
+    {
+        <div class="card" style="width: 18rem;">
+            @if (item.ImageName == null)
+            {
+                <img decoding="async" src="@("~/default_image/default.jpg")" asp-append-version="true" width="100px" height="100px" />
+            }
+            else
+            {
+                <img decoding="async" src="@("~/images/"+item.ImageName)" asp-append-version="true" width="200px" height="200px" />
+            }
+            <div classclass="card-body">
+                <h4 class="card-title"> @item.Name</h4>
+                <p class="card-text"> Price: @item.Price.ToString("0.00")</p>
+                <a asp-action="Details" asp-controller="Home" asp-route-product="@item.ProductId" class="btn btn-primary">Details</a>
             </div>
 
         </div>

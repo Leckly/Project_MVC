@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 using Project_MVC.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Project_MVC.Controllers;
 
 namespace Project_MVC.Areas.Admin.Controllers
 {
@@ -221,6 +222,23 @@ namespace Project_MVC.Areas.Admin.Controllers
 
             return View(product);
         }
+        public void AddToCart(int productId)
+        {
+
+                var cartItem = new ShoppingCart
+                {
+
+                    ProductId = (int)productId,
+                    UserId = User.Identity.Name,
+
+                };
+                _context.ShoppingCarts.AddAsync(cartItem);
+                _context.SaveChangesAsync();
+               
+
+        }
+     
+            
 
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -40,6 +41,7 @@ namespace Project_MVC.Controllers
             return View(joinedShoppingCart);
         }
 
+   
         // GET: ShoppingCarts/Details/5
         [Authorize(Roles = "User , Admin")]
         public async Task<IActionResult> Details(int? id)
@@ -59,6 +61,30 @@ namespace Project_MVC.Controllers
             return View(shoppingCart);
         }
 
+    
+        public IActionResult plus(int id)
+        {
+            var cartItem = _context.ShoppingCarts.FirstOrDefault(m => m.Id == id);
+            if (cartItem.Ilosc == 1)
+            {
+                cartItem.Ilosc++;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
+        public IActionResult minus (int id)
+        {
+            var cartItem = _context.ShoppingCarts.FirstOrDefault(m => m.Id == id);
+            if (cartItem.Ilosc >1)
+            {
+                cartItem.Ilosc--;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
         /*// GET: ShoppingCarts/Create
         [Authorize(Roles = "User , Admin")]
         public IActionResult Create()

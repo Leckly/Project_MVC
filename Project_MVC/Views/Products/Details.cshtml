@@ -41,6 +41,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CategoryId)
         </dd>
+   
         <dd class="col-sm-10">
             @if (Model.ImageName == null)
             {
@@ -59,5 +60,9 @@
         <a asp-action="Edit" asp-route-id="@Model?.ProductId">Edit</a> 
         <text> |</text>
      }
-    <a asp-action="Index">Back to List</a>
+
+    
+    <button class="btn btn-success" asp-action="Index">Back to List</button>
+    <a href="/ShoppingCarts"> <button asp-action="AddToCart" asp-controller="ProductsController" asp-route-product="@Model.ProductId" class="btn btn-dark" type="submit"> Dodaj do koszyka</button></a>
+    
 </div>

@@ -62,7 +62,7 @@
      }
 
     
-    <button class="btn btn-success" asp-action="Index">Back to List</button>
-    <a href="/ShoppingCarts"> <button asp-action="AddToCart" asp-controller="ProductsController" asp-route-product="@Model.ProductId" class="btn btn-dark" type="submit"> Dodaj do koszyka</button></a>
+    <a class="btn btn-success" asp-controller="Products" asp-action="Index">Back to List</a>
+    <a asp-action="AddToCart" asp-controller="Products" asp-route-productId="@Model.ProductId" class="btn btn-dark"> Dodaj do koszyka</a>
     
 </div>

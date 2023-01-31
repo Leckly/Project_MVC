@@ -222,20 +222,21 @@ namespace Project_MVC.Areas.Admin.Controllers
 
             return View(product);
         }
-        public void AddToCart(int productId)
+
+        public async Task<IActionResult> AddToCart(int productId)
         {
 
-                var cartItem = new ShoppingCart
-                {
+            var cartItem = new ShoppingCart
+            {
 
-                    ProductId = (int)productId,
-                    UserId = User.Identity.Name,
+                ProductId = (int)productId,
+                UserId = User.Identity.Name,
 
-                };
-                _context.ShoppingCarts.AddAsync(cartItem);
-                _context.SaveChangesAsync();
-               
+            };
+            await _context.ShoppingCarts.AddAsync(cartItem);
+            await _context.SaveChangesAsync();
 
+            return Redirect("/ShoppingCarts");
         }
      
             

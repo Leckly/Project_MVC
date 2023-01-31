@@ -57,12 +57,12 @@
 <div>
      @if (ViewContext.HttpContext.User.IsInRole("Admin"))
      {
-        <a asp-action="Edit" asp-route-id="@Model?.ProductId">Edytuj</a> 
+        <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model?.ProductId">Edytuj</a>
         <text> |</text>
     }
 
     
-    <a class="btn btn-success" asp-controller="Products" asp-action="Index">Powrót do listy</a>
+    <a class="btn btn-info" asp-controller="Products" asp-action="Index">Powrót do listy</a>
     <a asp-action="AddToCart" asp-controller="Products" asp-route-productId="@Model.ProductId" class="btn btn-dark"> Dodaj do koszyka</a>
     
 </div>

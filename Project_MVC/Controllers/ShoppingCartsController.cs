@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Project_MVC.Data;
 using Project_MVC.Models;
 
@@ -15,7 +18,7 @@ namespace Project_MVC.Controllers
     public class ShoppingCartsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+       
         public ShoppingCartsController(ApplicationDbContext context)
         {
             _context = context;
@@ -180,6 +183,65 @@ namespace Project_MVC.Controllers
 
             return View(shoppingCart);
         }
+
+        public async Task<ActionResult> Payment()
+        {
+            var name = User.Identity.Name;
+
+            //var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+                var order = new Order
+                {
+                    //FirstName = user.Imie,
+                    //LastName = user.Nazwisko,
+                   // Address = user.Adres,
+                   // City = user.Miasto,
+                   // PostCode = user.KodPocztowy,
+                   // Email = user.Email,
+                    //TelephoneNumber = user.Telefon
+                };
+                return View(order);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Pay(Order order, int id)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var userId = User.Identity.GetUserId();
+
+                // utworzyć obiekt zamowienia na podstawie tego co mamy w koszyku
+               // var newOrder = ;
+
+                // aktualizacja danych użytkownika
+               // var user = await _context.Users.FindAsync(userId);
+               /// TryUpdateModel(user.);
+               // await UserManager.UpdateAsync(user);
+
+       
+                var shoppingCart = await _context.ShoppingCarts.FindAsync(id);
+                if (shoppingCart != null)
+                {
+                    _context.ShoppingCarts.Remove(shoppingCart);
+                }
+
+
+                return RedirectToAction("PotwierdzenieZamowienia");
+            }
+            else
+                return View();
+        }
+
+
+        public ActionResult OrderConfirmation()
+        {
+            return View(); 
+        }
+
+       
+
+
+
 
         // POST: ShoppingCarts/Delete/5
         [HttpPost, ActionName("Delete")]

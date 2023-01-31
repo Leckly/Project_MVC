@@ -1,0 +1,66 @@
+﻿@model Project_MVC.Models.Order
+
+@{
+    ViewBag.Title = "Zaplac";
+ 
+}
+
+@section SectionTitle{
+    Uzupełnij dane zamówienia
+}
+
+
+@using (@Html.BeginForm("Zaplac", "Koszyk"))
+{
+    <table id="checkout-address-table">
+        <tr>
+            <td>@Html.LabelFor(o => o.FirstName, "Imię:")</td>
+            <td>@Html.TextBoxFor(o => o.FirstName)</td>
+            <td>@Html.ValidationMessageFor(o => o.FirstName)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(o => o.LastName, "Nazwisko")</td>
+            <td>@Html.TextBoxFor(o => o.LastName)</td>
+            <td>@Html.ValidationMessageFor(o => o.LastName)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(o => o.Address, "Adres")</td>
+            <td>@Html.TextBoxFor(o => o.Address)</td>
+            <td>@Html.ValidationMessageFor(o => o.Address)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(o => o.City, "Miasto")</td>
+            <td>@Html.TextBoxFor(o => o.City)</td>
+            <td>@Html.ValidationMessageFor(o => o.City)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(o => o.PostCode, "Kod pocztowy")</td>
+            <td>@Html.TextBoxFor(o => o.PostCode)</td>
+            <td>@Html.ValidationMessageFor(o => o.PostCode)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(o => o.TelephoneNumber, "Numer telefonu")</td>
+            <td>@Html.TextBoxFor(o => o.TelephoneNumber)</td>
+            <td>@Html.ValidationMessageFor(o => o.TelephoneNumber)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(o => o.Email, "Adres e-mail")</td>
+            <td>@Html.TextBoxFor(o => o.Email)</td>
+            <td>@Html.ValidationMessageFor(o => o.Email)</td>
+        </tr>
+        <tr>
+            <td><label for="Commment">Uwagi do zamówienia</label></td>
+            <td>
+                <textarea cols="40" rows="3" name="Comment">@Model.Comment</textarea>
+            </td>
+        </tr>
+    </table
+
+
+    <hr style="margin-bottom: 50px;" />
+
+    <div class="SekcjaPrzyciski">
+        <a class="PrzyciskLink" href="">Wróć</a>
+        <input type="submit" class="PrzyciskLink" style="" value="Potwierdź" />
+    </div>
+}

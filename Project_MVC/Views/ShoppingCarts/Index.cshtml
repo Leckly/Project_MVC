@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Kosz</h1>
 
 @*<p>
     <a asp-action="Create">Create New</a>
@@ -54,6 +54,16 @@
                 <br />
                 <label>Suma: @ViewBag.Total</label>
 
+            </td>
+            <td>
+            </td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td>
+                <br />
+                <a asp-action="AddToOrder" asp-controller="ShoppingCartsController" asp-route-Id="" class="btn btn-success"> Dodaj do zamówienia</a>
             </td>
             <td>
             </td>

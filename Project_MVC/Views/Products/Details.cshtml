@@ -56,10 +56,10 @@
 </div>
 <div>
      @if (ViewContext.HttpContext.User.IsInRole("Admin"))
-     {
-        <a asp-action="Edit" asp-route-id="@Model?.ProductId">Edit</a> 
+    {
+        <a class="btn btn-success" asp-controller="Products" asp-action="Edit" asp-route-id="@Model?.ProductId">Edit</a>
         <text> |</text>
-     }
+    }
 
     
     <a class="btn btn-success" asp-controller="Products" asp-action="Index">Back to List</a>

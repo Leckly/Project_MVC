@@ -33,6 +33,7 @@ namespace Project_MVC.Controllers
                 var getInto = new SiteCounter();
                 await _context.SiteCounter.AddAsync(getInto);
                 await _context.SaveChangesAsync();
+                ViewBag.Counter = _context.SiteCounter.Count();
                 return View(homeModel);
             }
             catch (Exception ex)

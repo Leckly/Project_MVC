@@ -123,7 +123,7 @@ namespace Project_MVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Name,Description,Price,Bestseller,ShortDescription,Image, CategoryId")] Product product)
+        public async Task<IActionResult> Create([Bind("Name,Description,Price,ShortDescription,Image, CategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -166,6 +166,7 @@ namespace Project_MVC.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
             return View(product);
         }
 
@@ -174,7 +175,7 @@ namespace Project_MVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Author,Description,Price,Bestseller,ShortDescription")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Description,Price,ShortDescription,CategoryId")] Product product)
         {
             if (id != product.ProductId)
             {

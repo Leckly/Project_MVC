@@ -9,7 +9,6 @@ using System.Security.Principal;
 
 namespace Project_MVC.Areas.Admin.Controllers
 {
-    [Area("Admin")]
     public class Category : Controller
     {
         private ISessionAll _sessionAll;

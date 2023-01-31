@@ -30,7 +30,7 @@ namespace Project_MVC.Models
         public string Description { get; set; }
         [Required(ErrorMessage = "Cena jest wymagany!")]
         [Display(Name = "Cena")]
-        public decimal Price { get; set; }
+        public int Price { get; set; }
         public int Bestseller { get; set; } = 0;
         public bool Hidden { get; set; } = false;
         [Required(ErrorMessage = "Krótki opis jest wymagany!")]
